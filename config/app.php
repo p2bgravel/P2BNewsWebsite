@@ -175,6 +175,12 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+
+        /*
+         * Extra Providers
+         */
+        Laratrust\LaratrustServiceProvider::class,
+
     ],
 
     /*
@@ -225,6 +231,11 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        /*
+         * extra
+         */
+        'Laratrust'   => Laratrust\LaratrustFacade::class,
 
     ],
 
