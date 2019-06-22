@@ -181,7 +181,6 @@ return [
          */
         Laratrust\LaratrustServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
-
     ],
 
     /*

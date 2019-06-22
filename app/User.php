@@ -63,4 +63,10 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims(){
         return [];
     }
+
+
+//    relationship
+    public function articles() {
+        return $this->hasMany('App\Models\Api\Article','author_id','id');
+    }
 }

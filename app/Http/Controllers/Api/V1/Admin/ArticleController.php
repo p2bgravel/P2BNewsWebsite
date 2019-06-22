@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api\V1\Admin;
 
+use App\Models\Api\Article;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use \JWTAuth;
@@ -14,8 +16,13 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        //
-        return 'get articles';
+        // get all
+        $articles = Article::with('author')->get();
+
+
+        // get own
+//        $articles = JWTAuth::user()->articles;
+        return response(['articles' => $articles], 200);
     }
 
     /**
