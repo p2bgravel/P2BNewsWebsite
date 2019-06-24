@@ -26,8 +26,10 @@ Route::prefix('v1')->namespace('Api\V1')->name('api.v1.')->group(function () {
         Route::post('login', 'AuthController@login');
         Route::post('logout', 'AuthController@logout');
     });
-
+    //admin
     Route::prefix('admin')->namespace('Admin')->name('admin.')->middleware(['jwt.auth','role:admin|mod'])->group(function () {
         Route::get('articles', 'ArticleController@index');
+
+        Route::get('categories', 'CategoryController@index');
     });
 });

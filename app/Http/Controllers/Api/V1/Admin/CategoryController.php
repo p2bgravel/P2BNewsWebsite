@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Api\V1\Admin;
 
-use App\Models\Api\Article;
-use App\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use \JWTAuth;
-class ArticleController extends Controller
+use App\Models\Api\Category;
+use Illuminate\Http\Request;
+
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,11 +15,8 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        // get all
-        $articles = Article::with('author')->with('categories')->get();
-        // get own
-//        $articles = JWTAuth::user()->articles;
-        return response(['articles' => $articles], 200);
+        $categories = Category::all();
+        return response(['categories' => $categories], 200);
     }
 
     /**
@@ -47,10 +43,10 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Api\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Category $category)
     {
         //
     }
@@ -58,10 +54,10 @@ class ArticleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Api\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
         //
     }
@@ -70,10 +66,10 @@ class ArticleController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Api\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
         //
     }
@@ -81,10 +77,10 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Api\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
         //
     }
