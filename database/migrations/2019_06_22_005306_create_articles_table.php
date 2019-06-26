@@ -24,7 +24,6 @@ class CreateArticlesTable extends Migration
             $table->unsignedBigInteger('author_id');
             $table->mediumText('html_meta')->nullable();
             $table->dateTime('published_at')->nullable();
-            $table->timestamps();
             //ref
             $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
