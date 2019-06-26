@@ -23,14 +23,15 @@ class Article extends Model
     //scope
     public function scopeSearchKeyword($query, $keyword)
     {
-        if(!$keyword) return $query;
+        if (!$keyword) return $query;
 
-        $pattern = '%'.$keyword.'%';
-        return $query->where('title', 'LIKE', $pattern)->orWhere('content', 'LIKE',  $pattern);
+        $pattern = '%' . $keyword . '%';
+        return $query->where('title', 'LIKE', $pattern)->orWhere('content', 'LIKE', $pattern);
     }
+
     public function scopeGetByAuthor($query, $author_id)
     {
-        if($author_id){
+        if ($author_id) {
             return $query->where('author_id', $author_id);
         }
         return $query;
