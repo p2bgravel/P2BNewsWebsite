@@ -20,7 +20,14 @@ class ArticleController extends Controller
     public function index()
     {
         // get all
-        $articles = Article::with('author')->with('categories')->searchKeyword(Input::get('keyword'))->getByAuthor(Input::get('author'))->latest()->paginate(10);
+        $articles = Article::with('author')
+                    ->with('categories')
+                    ->searchKeyword(Input::get('keyword'))
+                    ->getByAuthor(Input::get('author'))
+                    ->getByArticleState(Input::get('article_state'))
+                    ->getOrderBy(['title', Input::get('order_by_title')])
+                    ->getOrderBy(['created_at', Input::get('order_by_date_create')])
+                    ->paginate(10);
         return response(['articles' => $articles], 200);
     }
 
@@ -33,9 +40,9 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required|unique:articles|max:190',
-            'content' => 'required',
-            'slug' => 'nullable',
+            'title' => 'required|unique:articles|max:190|min:2',
+            'content' => 'required|string',
+            'slug' => 'nullable|string|min:2',
             'published_at' => 'nullable|date',
             'categories' => 'nullable|string'
         ]);
@@ -95,7 +102,7 @@ class ArticleController extends Controller
                 'max:190',
                 Rule::unique('articles')->ignore($id)
             ],
-            'content' => 'required',
+            'content' => 'required|string',
             'slug' => [
                 'nullable',
                 'string',
@@ -124,13 +131,10 @@ class ArticleController extends Controller
         if ($request->get('categories')) {
 
             $categories = explode(',', $request->get('categories'));
-            //remove all relationship between this article and categories
-            $article->categories()->detach();
-            //update the article_category_table
+            //sync the article_category_table
             if (is_array($categories) && count($categories) > 0) {
-                foreach ($categories as $categoryId) {
-                    $article->categories()->attach($categoryId);
-                }
+                $article->categories()->sync($categories);
+
             }
         }
 
@@ -145,15 +149,16 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
+        //just soft delete
         $article = Article::find($id);
         $user = JWTAuth::user();
-        //in case login-user is mod and article's author is admin then cannot be destroyed
+        //in case login-user is mod and article's author is admin then cannot be soft detele
         if($user->hasRole('mod') && !$article->isTheAuthor($user->id)){
             return response(['message' => 'There is only '.$article->author()->first()->name.' can delete resource'], 403);
         }
-
         //check if the resource can deleted or not
-        if (!Article::destroy($id)) {
+        $result = Article::where('id', $id)->update(['state'=>'deleted']);
+        if (!$result) {
             return response(['message' => 'Cannot found resource'], 404);
         }
         return response(['message' => 'detele item success'], 200);

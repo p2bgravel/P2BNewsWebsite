@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Api\Category;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -17,7 +18,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::searchKeyword(Input::get('keyword'))
+                                ->getOrderBy(['name', Input::get('order_by_name')])
+                                ->getOrderBy(['created_at', Input::get('order_by_date_create')])
+                                ->paginate(3);
         return response(['categories' => $categories], 200);
     }
 
