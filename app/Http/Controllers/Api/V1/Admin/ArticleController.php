@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Admin;
 
 use App\Models\Api\Article;
+use App\Traits\UploadTrait;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Input;
 
 class ArticleController extends Controller
 {
+    use UploadTrait;
     /**
      * Display a listing of the resource.
      *
@@ -39,7 +41,7 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $validator = Validator::make($request->except('image'), [
             'title' => 'required|unique:articles|max:190|min:2',
             'content' => 'required|string',
             'slug' => 'nullable|string|min:2',
@@ -53,6 +55,13 @@ class ArticleController extends Controller
         //create new articles
         $article = new Article($validator->validate());
         $article->author_id = JWTAuth::user()->id;
+
+        // save image
+        if($request->has('image')){
+            $path = $this->uploadOne($request->file('image'),'images');
+            $article->image_url = $path;
+        }
+
         $article->save();
 
         //update the article_category_table

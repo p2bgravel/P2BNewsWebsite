@@ -2,13 +2,22 @@
 
 namespace App\Models\Api;
 
+use App\Traits\UploadTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
+    use UploadTrait;
     protected $fillable = ['title', 'content', 'author_id ', 'state', 'slug', 'tags', 'image_url', 'html_meta', 'published_at'];
     // do not show the pivot table
     protected $hidden = ['pivot'];
+
+    public function getImageUrlAttribute($value)
+    {
+        if(!$value) return null;
+        return $this->getUrl($value);
+    }
+
 
     public function isTheAuthor($loginId)
     {
