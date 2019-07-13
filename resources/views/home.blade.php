@@ -1,23 +1,27 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+    <!-- ##### Hero Area Start ##### -->
+    @include('articles.main-carousel')
+    <!-- ##### Hero Area End ##### -->
 
-                    You are logged in!
-                </div>
+    <!-- ##### Blog Content Area Start ##### -->
+    <section class="blog-content-area section-padding-100">
+        <div class="container">
+            <div class="row justify-content-center">
+                <!-- Blog Posts Area -->
+                @include('articles.articles')
+
+                <!-- Blog Sidebar Area -->
+               @include('articles.right-sidebar')
             </div>
         </div>
-    </div>
-</div>
+    </section>
+    <!-- ##### Blog Content Area End ##### -->
+
+    <!-- ##### Instagram Area Start ##### -->
+    @include('articles.social-media')
+    <!-- ##### Instagram Area End ##### -->
+
 @endsection

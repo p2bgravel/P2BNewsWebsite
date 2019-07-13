@@ -60,3 +60,6 @@
  ###Issues:
  - jwt-auth dependence with nesbot/carbon version problem:
     - https://github.com/tymondesigns/jwt-auth/issues/1795
+    
+  ###Web:
+  - Template blog is located at `/resources/template.*.zip`
