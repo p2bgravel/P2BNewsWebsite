@@ -35,5 +35,9 @@ Route::prefix('v1')->namespace('Api\V1')->name('api.v1.')->group(function () {
         Route::delete('articles/{id}', 'ArticleController@destroy');
 
         Route::get('categories', 'CategoryController@index');
+        Route::post('categories', 'CategoryController@store');
+        Route::get('categories/{id}', 'CategoryController@show');
+        Route::put('categories/{id}', 'CategoryController@update');
+        Route::delete('categories/{id}', 'CategoryController@destroy');
     });
 });

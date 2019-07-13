@@ -21,8 +21,10 @@ class CategoriesTableSeeder extends Seeder
             'tuoi tre'
         ];
         foreach ($cats as $cat) {
+            $slug = DatabaseSeeder::slugify($cat);
             Category::create([
-                'name' => $cat
+                'name' => $slug,
+                'display_name' => $cat
             ]);
         }
     }
