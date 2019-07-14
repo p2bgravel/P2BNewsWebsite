@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>App Name - @yield('title')</title>
+    <title>@yield('title')</title>
 
 
     <!-- Fonts -->

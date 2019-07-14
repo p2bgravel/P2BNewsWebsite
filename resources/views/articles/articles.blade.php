@@ -1,4 +1,3 @@
-
 <div class="col-12 col-lg-8">
     <div class="blog-posts-area">
         <div class="row">

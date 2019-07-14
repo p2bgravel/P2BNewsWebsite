@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.default')
+
+@section('title', 'Web design and branding in Dallas')
 
 @section('content')
 
