@@ -32,6 +32,7 @@ Route::prefix('v1')->namespace('Api\V1')->name('api.v1.')->group(function () {
         Route::post('articles', 'ArticleController@store');
         Route::get('articles/{id}', 'ArticleController@show');
         Route::put('articles/{id}', 'ArticleController@update');
+        Route::patch('articles/{id}/publish', 'ArticleController@publish');
         Route::delete('articles/{id}', 'ArticleController@destroy');
 
         Route::get('categories', 'CategoryController@index');

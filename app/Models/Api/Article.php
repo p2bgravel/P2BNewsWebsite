@@ -3,6 +3,7 @@
 namespace App\Models\Api;
 
 use App\Traits\UploadTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
@@ -87,5 +88,14 @@ class Article extends Model
                 }
         }
 
+    }
+
+    public function scopeGetByCategory($query, $category_name) {
+        if(!$category_name) return $query;
+        return $query->whereHas('categories',function(Builder $categoryQuery) use($category_name){
+            // $categoryQuery is category query
+            // must explicit point out the table name categories.name.
+            $categoryQuery->where('categories.name', 'LIKE' , '%'.$category_name.'%');
+        });
     }
 }

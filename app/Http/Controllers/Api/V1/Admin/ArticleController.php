@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\Admin;
 
 use App\Models\Api\Article;
 use App\Traits\UploadTrait;
+use Carbon\Carbon;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -24,6 +25,7 @@ class ArticleController extends Controller
         // get all
         $articles = Article::with('author')
                     ->with('categories')
+                    ->getByCategory(Input::get('category'))
                     ->searchKeyword(Input::get('keyword'))
                     ->getByAuthor(Input::get('author'))
                     ->getByArticleState(Input::get('article_state'))
@@ -149,6 +151,25 @@ class ArticleController extends Controller
 
         return response(['message' => "update success "], 200);
     }
+
+
+    /**
+     *  change the state to publish
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function publish($id) {
+        $article = Article::findOrfail($id);
+        if($article->state !== "published"){
+            $article->state = "published";
+        }
+        $article->published_at = Carbon::now();
+        $article->save();
+        return Article::findOrfail($id)->toArray();
+    }
+
+
 
     /**
      * Remove the specified resource from storage.

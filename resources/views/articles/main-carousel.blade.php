@@ -1,3 +1,7 @@
+@php
+    $list_article = $slide_articles;
+@endphp
+
 <section class="hero-area">
     <!-- Preloader -->
     <div class="preloader d-flex align-items-center justify-content-center">
@@ -13,63 +17,35 @@
     </div>
 
     <div class="hero-post-slides owl-carousel">
-
+        @foreach($list_article as $article)
+            @php
+                $date = $article->published_at ? $article->published_at : $article->updated_at ;
+                $formatDate = date('M-d-Y', strtotime($date));
+                $limitWords = 200;
+                $shortDesc = \Illuminate\Support\Str::limit($article->content, $limitWords, '...')
+            @endphp
         <!-- Single Hero Post -->
-        <div class="single-hero-post d-flex flex-wrap">
-            <!-- Post Thumbnail -->
-            <div class="slide-post-thumbnail h-100 bg-img" style="background-image: url(img/blog-img/13.jpg);"></div>
-            <!-- Post Content -->
-            <div class="slide-post-content h-100 d-flex align-items-center">
-                <div class="slide-post-text">
-                    <p class="post-date" data-animation="fadeIn" data-delay="100ms">MAY 01, 2018 / lifestyle</p>
-                    <a href="#" class="post-title" data-animation="fadeIn" data-delay="300ms">
-                        <h2>We’ve Launched More May Gal Meets Glam Collection Dresses</h2>
-                    </a>
-                    <p class="post-excerpt" data-animation="fadeIn" data-delay="500ms">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
-                    <a href="#" class="btn nikki-btn" data-animation="fadeIn" data-delay="700ms">Read More</a>
+            <div class="single-hero-post d-flex flex-wrap">
+                <!-- Post Thumbnail -->
+                <div class="slide-post-thumbnail h-100 bg-img"
+                     style="background-image: url({{$article->image_url}});"></div>
+                <!-- Post Content -->
+                <div class="slide-post-content h-100 d-flex align-items-center">
+                    <div class="slide-post-text">
+                        <p class="post-date" data-animation="fadeIn" data-delay="100ms">{{$formatDate}}</p>
+                        <a href="#" class="post-title" data-animation="fadeIn" data-delay="300ms">
+                            <h2>{{$article->title}}</h2>
+                        </a>
+                        {{--list catergories--}}
+                        @include('articles.list-catergories-links', ['article', $article])
+                        {{--end list catergories--}}
+                        <p class="post-excerpt" data-animation="fadeIn" data-delay="500ms">{{$shortDesc}}</p>
+                        <a href="#" class="btn nikki-btn" data-animation="fadeIn" data-delay="700ms">Read More</a>
+                    </div>
+                    <!-- Page Count -->
+                    <div class="page-count"></div>
                 </div>
-                <!-- Page Count -->
-                <div class="page-count"></div>
             </div>
-        </div>
-
-        <!-- Single Hero Post -->
-        <div class="single-hero-post d-flex flex-wrap">
-            <!-- Post Thumbnail -->
-            <div class="slide-post-thumbnail h-100 bg-img" style="background-image: url(img/blog-img/14.jpg);"></div>
-            <!-- Post Content -->
-            <div class="slide-post-content h-100 d-flex align-items-center">
-                <div class="slide-post-text">
-                    <p class="post-date" data-animation="fadeIn" data-delay="100ms">MAY 01, 2018 / lifestyle</p>
-                    <a href="#" class="post-title" data-animation="fadeIn" data-delay="300ms">
-                        <h2>A Closer Look At Our Front Porch Items From Lowe’s</h2>
-                    </a>
-                    <p class="post-excerpt" data-animation="fadeIn" data-delay="500ms">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
-                    <a href="#" class="btn nikki-btn" data-animation="fadeIn" data-delay="700ms">Read More</a>
-                </div>
-                <!-- Page Count -->
-                <div class="page-count"></div>
-            </div>
-        </div>
-
-        <!-- Single Hero Post -->
-        <div class="single-hero-post d-flex flex-wrap">
-            <!-- Post Thumbnail -->
-            <div class="slide-post-thumbnail h-100 bg-img" style="background-image: url(img/blog-img/15.jpg);"></div>
-            <!-- Post Content -->
-            <div class="slide-post-content h-100 d-flex align-items-center">
-                <div class="slide-post-text">
-                    <p class="post-date" data-animation="fadeIn" data-delay="100ms">MAY 01, 2018 / lifestyle</p>
-                    <a href="#" class="post-title" data-animation="fadeIn" data-delay="300ms">
-                        <h2>Answering Your Most Frequent International Transportation Questions</h2>
-                    </a>
-                    <p class="post-excerpt" data-animation="fadeIn" data-delay="500ms">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
-                    <a href="#" class="btn nikki-btn" data-animation="fadeIn" data-delay="700ms">Read More</a>
-                </div>
-                <!-- Page Count -->
-                <div class="page-count"></div>
-            </div>
-        </div>
-
+        @endforeach
     </div>
 </section>

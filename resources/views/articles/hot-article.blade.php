@@ -1,23 +1,41 @@
+@php
+    $article = $hot_article;
+    $date = $article->published_at ? $article->published_at : $article->updated_at ;
+    $formatDate = date('M-d-Y', strtotime($date));
+    $limitWords = 300;
+    $shortDesc = \Illuminate\Support\Str::limit($article->content, $limitWords, '...')
+@endphp
+
+
 <div class="col-12">
     <div class="featured-post-area mb-50">
         <!-- Thumbnail -->
         <div class="post-thumbnail mb-30">
-            <a href="#"><img src="img/blog-img/12.jpg" alt=""></a>
+            <a href="#"><img src="{{$article->image_url}}" alt=""></a>
         </div>
         <!-- Featured Post Content -->
         <div class="featured-post-content">
-            <p class="post-date">MAY 7, 2018 / lifestyle</p>
+            <p class="post-date">{{$formatDate}}</p>
             <a href="#" class="post-title">
-                <h2>A Closer Look At Our Front Porch Items From Lowe’s</h2>
+                <h2>{{$article->title}}</h2>
             </a>
-            <p class="post-excerpt">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium</p>
+            {{--list catergories--}}
+            @include('articles.list-catergories-links', ['article', $article])
+            {{--end list catergories--}}
+            <p class="post-excerpt">
+                {{$shortDesc}}
+            </p>
         </div>
         <!-- Post Meta -->
         <div class="post-meta d-flex align-items-center justify-content-between">
             <!-- Author Comments -->
+
             <div class="author-comments">
-                <a href="#"><span>by</span> Colorlib</a>
-                <a href="#">03 <span>Comments</span></a>
+                <a href="#"><span>by</span> {{$article->author->name}}</a>
+
+                @if($article->comments)
+                    <a href="#">03 <span>Comments</span></a>
+                @endif
             </div>
             <!-- Social Info -->
             <div class="social-info">

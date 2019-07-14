@@ -16,6 +16,9 @@ trait UploadTrait
     }
     public function getUrl($path)
     {
+        if(preg_match('/^http/',$path)){
+            return $path;
+        }
         return env("APP_URL") . "/storage/" . $path;
     }
 }
