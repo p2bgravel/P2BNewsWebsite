@@ -6,15 +6,12 @@
             <div class="container-fluid">
                 <!-- Menu -->
                 <nav class="classy-navbar justify-content-between" id="nikkiNav">
-
                     <!-- Nav brand -->
-                    <a href="index.html" class="nav-brand"><img src="img/core-img/logo.png" alt=""></a>
-
+                    <a href="{{route('web.home')}}" class="nav-brand"><img src="img/core-img/logo.png" alt=""></a>
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
                         <span class="navbarToggler"><span></span><span></span><span></span></span>
                     </div>
-
                     <!-- Menu -->
                     <div class="classy-menu">
 
@@ -26,12 +23,12 @@
                         <!-- Nav Start -->
                         <div class="classynav">
                             <ul>
-                                <li><a href="index.html">Home</a></li>
-                                {{--                                <li><a href="#">Pages</a>--}}
-                                {{--                                    <ul class="dropdown">--}}
-                                {{--                                        <li><a href="{{route('web.home')}}">Home</a></li>--}}
-                                {{--                                    </ul>--}}
-                                {{--                                </li>--}}
+                                <li><a href="{{route('web.home')}}">Home</a></li>
+                                {{--<li><a href="#">Pages</a>--}}
+                                {{--<ul class="dropdown">--}}
+                                {{--<li><a href="{{route('web.home')}}">Home</a></li>--}}
+                                {{--</ul>--}}
+                                {{--</li>--}}
                                 <li><a href="javascript:void(0);">Catagories</a>
                                     @if($categories && count($categories) > 0)
                                         <div class="megamenu">

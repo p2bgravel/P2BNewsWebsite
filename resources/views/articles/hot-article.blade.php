@@ -11,12 +11,12 @@
     <div class="featured-post-area mb-50">
         <!-- Thumbnail -->
         <div class="post-thumbnail mb-30">
-            <a href="#"><img src="{{$article->image_url}}" alt=""></a>
+            <a href="{{route('web.article',[$article->slug])}}"><img src="{{$article->image_url}}" alt=""></a>
         </div>
         <!-- Featured Post Content -->
         <div class="featured-post-content">
             <p class="post-date">{{$formatDate}}</p>
-            <a href="#" class="post-title">
+            <a href="{{route('web.article',[$article->slug])}}" class="post-title">
                 <h2>{{$article->title}}</h2>
             </a>
             {{--list catergories--}}

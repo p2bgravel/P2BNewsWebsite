@@ -18,10 +18,10 @@
                         <img src="{{$article->image_url}}" alt="{{$article->title}}">
                     </div>
                     <div class="post-content">
-                        <a href="#" class="post-title">
+                        <a href="{{route('web.article',[$article->slug])}}" class="post-title">
                             <h6>{{$article->title}}</h6>
                         </a>
-                        <a href="#" class="post-author"><span>by</span> {{$article->author->name}}</a>
+                        <a href="{{route('web.article',[$article->slug])}}" class="post-author"><span>by</span> {{$article->author->name}}</a>
                         <p>{{$formatDate}}</p>
 
                     </div>

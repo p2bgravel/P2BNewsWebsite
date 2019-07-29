@@ -13,12 +13,31 @@ class Article extends Model
     // do not show the pivot table
     protected $hidden = ['pivot'];
 
-    public function getImageUrlAttribute($value)
+    //custome function
+    public function generateSlug()
     {
-        if(!$value) return null;
-        return $this->getUrl($value);
+        $text = $this->title;
+        // replace non letter or digits by -
+        $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+        // transliterate
+        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+        // remove unwanted characters
+        $text = preg_replace('~[^-\w]+~', '', $text);
+        // trim
+        $text = trim($text, '-');
+        // remove duplicate -
+        $text = preg_replace('~-+~', '-', $text);
+        // lowercase
+        $text = strtolower($text);
+
+        $this->slug = $text;
     }
 
+    public function getImageUrlAttribute($value)
+    {
+        if (!$value) return null;
+        return $this->getUrl($value);
+    }
 
     public function isTheAuthor($loginId)
     {
@@ -90,12 +109,13 @@ class Article extends Model
 
     }
 
-    public function scopeGetByCategory($query, $category_name) {
-        if(!$category_name) return $query;
-        return $query->whereHas('categories',function(Builder $categoryQuery) use($category_name){
+    public function scopeGetByCategory($query, $category_name)
+    {
+        if (!$category_name) return $query;
+        return $query->whereHas('categories', function (Builder $categoryQuery) use ($category_name) {
             // $categoryQuery is category query
             // must explicit point out the table name categories.name.
-            $categoryQuery->where('categories.name', 'LIKE' , '%'.$category_name.'%');
+            $categoryQuery->where('categories.name', 'LIKE', '%' . $category_name . '%');
         });
     }
 }

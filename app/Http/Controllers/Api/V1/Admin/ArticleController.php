@@ -58,6 +58,13 @@ class ArticleController extends Controller
         $article = new Article($validator->validate());
         $article->author_id = JWTAuth::user()->id;
 
+        //generate the slug
+        if(!$article->slug){
+            $article->generateSlug();
+        }
+
+        dd($article->slug);
+
         // save image
         if($request->has('image')){
             $path = $this->uploadOne($request->file('image'),'images');

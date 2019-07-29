@@ -11,7 +11,7 @@
     <!-- Tags -->
     <ol class="popular-tags d-flex flex-wrap">
         @foreach($categories as $cat)
-            <li><a href="?category={{$cat->name}}">{{$cat->display_name}}</a></li>
+            <li><a href="{{route('web.home', ['category' => $cat->name])}}">{{$cat->display_name}}</a></li>
         @endforeach
     </ol>
 </div>

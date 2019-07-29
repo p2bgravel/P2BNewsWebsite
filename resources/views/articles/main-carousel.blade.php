@@ -33,14 +33,14 @@
                 <div class="slide-post-content h-100 d-flex align-items-center">
                     <div class="slide-post-text">
                         <p class="post-date" data-animation="fadeIn" data-delay="100ms">{{$formatDate}}</p>
-                        <a href="#" class="post-title" data-animation="fadeIn" data-delay="300ms">
+                        <a href="{{route('web.article',[$article->slug])}}" class="post-title" data-animation="fadeIn" data-delay="300ms">
                             <h2>{{$article->title}}</h2>
                         </a>
                         {{--list catergories--}}
                         @include('articles.list-catergories-links', ['article', $article])
                         {{--end list catergories--}}
                         <p class="post-excerpt" data-animation="fadeIn" data-delay="500ms">{{$shortDesc}}</p>
-                        <a href="#" class="btn nikki-btn" data-animation="fadeIn" data-delay="700ms">Read More</a>
+                        <a href="{{route('web.article',[$article->slug])}}" class="btn nikki-btn" data-animation="fadeIn" data-delay="700ms">Read More</a>
                     </div>
                     <!-- Page Count -->
                     <div class="page-count"></div>

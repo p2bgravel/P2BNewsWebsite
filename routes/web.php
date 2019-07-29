@@ -23,4 +23,5 @@ Route::namespace('Web')->name('web.')->group(function () {
         return redirect('/home');
     });
     Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/articles/{slug}', 'ArticleController@index')->name('article');
 });

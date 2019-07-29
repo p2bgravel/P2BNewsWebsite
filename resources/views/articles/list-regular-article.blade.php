@@ -14,7 +14,7 @@
         <div class="single-blog-post mb-50">
             <!-- Thumbnail -->
             <div class="post-thumbnail">
-                <a href="#"><img src="{{$article->image_url}}" alt="{{$article->title}}"></a>
+                <a href="{{route('web.article',[$article->slug])}}"><img src="{{$article->image_url}}" alt="{{$article->title}}"></a>
                 {{--list catergories--}}
                 @include('articles.list-catergories-links', ['article', $article])
                 {{--end list catergories--}}
@@ -22,7 +22,7 @@
             <!-- Content -->
             <div class="post-content">
                 <p class="post-date">{{$formatDate}}</p>
-                <a href="#" class="post-title">
+                <a href="{{route('web.article',[$article->slug])}}" class="post-title">
                     <h4>{{$article->title}}</h4>
                 </a>
                 <p class="post-excerpt">{{$shortDesc}}</p>

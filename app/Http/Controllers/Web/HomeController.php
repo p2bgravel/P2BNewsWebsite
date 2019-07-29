@@ -14,12 +14,11 @@ class HomeController extends Controller
         $articles = Article::getByCategory(Input::get('category'))
             ->getByArticleState('published')
             ->getOrderBy(['updated_at', 'desc'])
-            ->paginate(15);
-
+            ->paginate(30);
         if ($articles->count() > 0) {
             $hot_article = $articles[0];
             $latest_articles = $articles->slice(1, 5);
-            $regular_articles = $articles->slice(7, 5);
+            $regular_articles = $articles->slice(6);
             if ($articles->count() > 3) {
                 $slide_articles = $articles->random(3);
             } else {
