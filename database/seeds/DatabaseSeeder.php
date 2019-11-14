@@ -11,9 +11,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-//         $this->call(LaratrustSeeder::class);
-//         $this->call(ArticlesTableSeeder::class);
-//         $this->call(CategoriesTableSeeder::class);
+        $this->call(LaratrustSeeder::class);
+        $this->call(ArticlesTableSeeder::class);
+        $this->call(CategoriesTableSeeder::class);
          $this->call(ArticleCategoryTableSeeder::class);
     }
 

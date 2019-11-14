@@ -10,6 +10,7 @@
 #####Initial:
 - Install package:
 > composer install
+> composer update
 
 - setup .env:
     
@@ -34,9 +35,14 @@
 ###Migrate DB:
 - Migrate database:
 > php artisan migrate
+> php artisan migrate:refresh --seed
+
 
 - Seed data:
+> composer dump-autoload
 > php artisan db:seed
+> php artisan db:seed --force
+
 
 ###Start:
  - Start project
